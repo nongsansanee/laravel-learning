@@ -42,6 +42,17 @@ Route::get('/testweb',function(){
      return view('create-form')->with(['header'=> $header,'genders'=>$genders]);
  });
 
+ Route::get('/form-worklog',function(){
+    $header = "My Work Log";
+    $types[] = ['id'=>1,'name'=>'Programming'];
+    $types[] = ['id'=>2,'name'=>'Change Request'];
+    $types[] = ['id'=>3,'name'=>'Bug'];
+    $types[] = ['id'=>4,'name'=>'Meeting'];
+    $types[] = ['id'=>5,'name'=>'Learning'];
+    $types[] = ['id'=>6,'name'=>'Other'];
+    return view('form-worklog')->with(['header'=> $header,'types'=>$types]);
+});
+
  Route::get('/store',function(){
     $username = Illuminate\support\Facades\Input::get('username');
     $password = Illuminate\support\Facades\Input::get('password');
@@ -53,6 +64,11 @@ Route::get('/testweb',function(){
 //  });
 
  Route::post('/store',function(Illuminate\Http\Request $request){
+    //return $request->all();  
+    return $request->username;
+ });
+
+ Route::post('/savelog',function(Illuminate\Http\Request $request){
     //return $request->all();  
     return $request->username;
  });
