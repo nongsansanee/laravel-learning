@@ -34,3 +34,25 @@ Route::get('/index',function(){
 Route::get('/testweb',function(){
     return view('testweb');
  });
+
+ Route::get('/create',function(){
+     $header = "create form";
+     $genders[] = ['id'=>0,'name'=>'หญิง'];
+     $genders[] = ['id'=>1,'name'=>'ชาย'];
+     return view('create-form')->with(['header'=> $header,'genders'=>$genders]);
+ });
+
+ Route::get('/store',function(){
+    $username = Illuminate\support\Facades\Input::get('username');
+    $password = Illuminate\support\Facades\Input::get('password');
+    return "test login=".$username.' '.$password;
+ });
+
+//  Route::post('/store',function(){
+//     return "test login POST";
+//  });
+
+ Route::post('/store',function(Illuminate\Http\Request $request){
+    //return $request->all();  
+    return $request->username;
+ });
