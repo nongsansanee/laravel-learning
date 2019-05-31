@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 Route::get('/', function () {
     return view('welcome');
@@ -69,6 +73,21 @@ Route::get('/testweb',function(){
  });
 
  Route::post('/savelog',function(Illuminate\Http\Request $request){
-    //return $request->all();  
-    return $request->username;
+   
+   //DB::table('tasks')->insert(
+   //   ['type' => $request->type, 'name' => $request->name,'detail' => $request->detail,'completed' => $request->completed]
+   // );
+    \App\Task::create($request->all());
+/**** 
+   $task = new \App\Task();
+   $task->type= $request->type;
+   $task->name= $request->name;
+   $task->detail= $request->detail;
+   $task->completed=$request->completed;
+   $task->save();
+   ***/
+   // echo "Save Success";
+   // return $request->all();  
+   // return Redirect::back();
+   return view('savelog');
  });

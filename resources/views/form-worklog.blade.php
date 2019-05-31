@@ -3,8 +3,10 @@
 
 @section('content')
         
-  <h2>{{$header}}</h2>
-        <form action="/savelog" method="post">
+  <!-- <h2>{{$header}}</h2> -->
+    <form action="/savelog" method="post">
+        <!-- <div class="card"> -->
+        <h5 class="card-header">{{$header}}</h5>
         <div class="form-group">
             <input class="form-check-input" type="hidden" name="_token" value="{{ csrf_token()}}" ><br>
             ประเภทงาน:
@@ -42,10 +44,16 @@
                 ยังไม่สำเร็จ
              </label>
         </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+    
+
+       
            
-        
-        </form>
+        <!-- </div>    -->
+        <br>
+        <center>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-secondary">Cancel</button>
+        </center>
+    </form>
 
 @endsection
