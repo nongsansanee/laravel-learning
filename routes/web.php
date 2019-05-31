@@ -77,8 +77,10 @@ Route::get('/testweb',function(){
    //DB::table('tasks')->insert(
    //   ['type' => $request->type, 'name' => $request->name,'detail' => $request->detail,'completed' => $request->completed]
    // );
-    \App\Task::create($request->all());
-/**** 
+      // insert แบบที่ 1
+    //$task=\App\Task::create($request->all());
+   
+    /**** insert แบบที่ 2 
    $task = new \App\Task();
    $task->type= $request->type;
    $task->name= $request->name;
@@ -89,5 +91,6 @@ Route::get('/testweb',function(){
    // echo "Save Success";
    // return $request->all();  
    // return Redirect::back();
-   return view('savelog');
+   $task = new \App\Task();
+   return view('savelog')->with(['tasks'=>$task::all()]);
  });
