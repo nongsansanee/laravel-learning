@@ -78,7 +78,7 @@ Route::get('/testweb',function(){
    //   ['type' => $request->type, 'name' => $request->name,'detail' => $request->detail,'completed' => $request->completed]
    // );
       // insert แบบที่ 1
-    //$task=\App\Task::create($request->all());
+    $task=\App\Task::create($request->all());
    
     /**** insert แบบที่ 2 
    $task = new \App\Task();
