@@ -74,9 +74,16 @@ Route::get('/testweb',function(){
 
  Route::post('/savelog',function(Illuminate\Http\Request $request){
    
+<<<<<<< HEAD
   
       
    // insert แบบที่ 1
+=======
+   //DB::table('tasks')->insert(
+   //   ['type' => $request->type, 'name' => $request->name,'detail' => $request->detail,'completed' => $request->completed]
+   // );
+      // insert แบบที่ 1
+>>>>>>> 50e12e6daa3e3706b3cf1687eea8f0d5ecd50da9
     $task=\App\Task::create($request->all());
    
     /**** insert แบบที่ 2 
