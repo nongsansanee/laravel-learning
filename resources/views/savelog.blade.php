@@ -10,12 +10,13 @@
   <!-- <p>The .table-striped class adds zebra-stripes to a table:</p>  -->
   <form action="/form-worklog">
     <div class="form-group">
-        <label for="email">บันทึกสำเร็จ</label>
+        <label>-->บันทึกสำเร็จ</label><br>
         <button type="submit" class="btn btn-primary">กลับไปหน้าปันทึกงาน</button>
     </div>
   </form>  
   <input class="form-control" id="myInput" type="text" placeholder="Search..">
   <br>
+ 
   <table class="table table-striped">
     <thead>
       <tr>
@@ -25,6 +26,7 @@
         <th>รายละเอียดงาน</th>
         <th>สถานะงาน</th>
         <th>วันที่บันทึก</th>
+        <th>แก้ไข/ลบ รายการ</th>
       </tr>
     </thead>
     <tbody id="myTable">
@@ -62,6 +64,7 @@
         <td>
            <!-- {{ $task['completed']}} -->
            <!-- $status = $task['completed'] -->
+          
            <div>
              @if($task['completed']===0)
                  
@@ -70,14 +73,24 @@
                
                 <!-- <label >ยังไม่สำเร็จ</label> -->
                 <label class="form-check-label">
-                     <input type="checkbox" class="form-check-input" value="0"> click เมื่องานนี้สำเร็จ    
+                     <input type="checkbox" id="myCheck" class="form-check-input"  onclick="myFunction({{$task['id']}})"> click เมื่องานนี้สำเร็จ    
+
+                       <!-- <input type="checkbox" id="myCheck" class="form-check-input"  data-target="#myModal"> click เมื่องานนี้สำเร็จ     -->
                 </label>
                
              @endif
              </div>
-      
+          
          </td>
          <td>{{$task['created_at']}}</td>
+         <td>
+            <div>
+                  <button type="submit" class="btn btn-warning">แก้ไข</button>
+               <form action="/deletelog/{{$task['id']}}" method="get" >
+                  <button type="submit" class="btn btn-danger">ลบ</button>
+              </form>
+            </div>
+         </td>
       </tr>
       @endforeach
       <!-- <tr>
@@ -96,7 +109,13 @@
       </tr> -->
     </tbody>
   </table>
+
+
+
 </div>
+
+
+ 
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
@@ -106,6 +125,21 @@ $(document).ready(function(){
     });
   });
 });
+
+function myFunction(id) {
+  //alert('aaaaa');
+  alert('ID='+id);
+  //var checkBox = document.getElementById("myCheck");
+  //var id = document.getElementByVal("myCheck");
+  //alert('aaaaa');
+  //location.replace("http://www.w3schools.com");
+
+
+  //var $response = $this->post('updatelog');
+  
+  
+}
+
 </script>
 
 @endsection

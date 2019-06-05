@@ -74,11 +74,10 @@ Route::get('/testweb',function(){
 
  Route::post('/savelog',function(Illuminate\Http\Request $request){
    
-   //DB::table('tasks')->insert(
-   //   ['type' => $request->type, 'name' => $request->name,'detail' => $request->detail,'completed' => $request->completed]
-   // );
-      // insert แบบที่ 1
-    //$task=\App\Task::create($request->all());
+  
+      
+   // insert แบบที่ 1
+    $task=\App\Task::create($request->all());
    
     /**** insert แบบที่ 2 
    $task = new \App\Task();
@@ -88,9 +87,30 @@ Route::get('/testweb',function(){
    $task->completed=$request->completed;
    $task->save();
    ***/
+  
    // echo "Save Success";
    // return $request->all();  
    // return Redirect::back();
    $task = new \App\Task();
    return view('savelog')->with(['tasks'=>$task::all()]);
+ });
+
+ Route::post('/updatestatuslog',function($id){
+   echo "......Updating....";
+   //return $request->all();  
+ });
+
+ Route::get('/deletelog/{id}',function($id){
+  
+   //echo "......Deleting....";
+ 
+  $task = new \App\Task();
+  $task = App\Task::find($id);
+  $task->delete();
+
+  $task = new \App\Task();
+   return view('savelog')->with(['tasks'=>$task::all()]);
+  
+  //return "ID:".$id;
+   
  });
