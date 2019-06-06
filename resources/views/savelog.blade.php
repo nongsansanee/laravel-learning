@@ -70,13 +70,17 @@
                  
                  <label >สำเร็จ</label>
              @else
-               
+             <form action="{{url('/updatestatuslog',$task['id'])}}" method="post" class="was-validated">
                 <!-- <label >ยังไม่สำเร็จ</label> -->
-                <label class="form-check-label">
-                     <input type="checkbox" id="myCheck" class="form-check-input"  onclick="myFunction({{$task['id']}})"> click เมื่องานนี้สำเร็จ    
+                <!-- <label class="form-check-label"> -->
+                     <input type="hidden"  name="_token" value="{{ csrf_token()}}">
+                     <input type="hidden" name="_method" value="PUT">
+                     <button type="submit"  class="btn btn-primary"> click เมื่องานนี้สำเร็จ </button> 
+                     <!-- <input type="checkbox" id="myCheck" class="form-check-input"  onclick="myFunction({{$task['id']}})"> click เมื่องานนี้สำเร็จ     -->
 
                        <!-- <input type="checkbox" id="myCheck" class="form-check-input"  data-target="#myModal"> click เมื่องานนี้สำเร็จ     -->
-                </label>
+                <!-- </label> -->
+                </form>
                
              @endif
              </div>
@@ -85,7 +89,9 @@
          <td>{{$task['created_at']}}</td>
          <td>
             <div>
+              <form action="{{url('/edit',$task['id'])}}" method="get" class="was-validated">
                   <button type="submit" class="btn btn-warning">แก้ไข</button>
+              </form>
                <form action="/deletelog/{{$task['id']}}" method="get" >
                   <button type="submit" class="btn btn-danger">ลบ</button>
               </form>
