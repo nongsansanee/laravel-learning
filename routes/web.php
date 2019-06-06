@@ -72,14 +72,14 @@ Route::get('/testweb',function(){
     return $request->username;
  });
 
- Route::post('/savelog',function(Illuminate\Http\Request $request){
-   
-
-  
-      
+ Route::post('/savelog',function(Illuminate\Http\Request $request){   
+ 
+   $validate = $request->validate([
+      'type' => 'required',
+      'name' => 'required|max:100',
+      'completed' => 'required'
+   ]);
    // insert แบบที่ 1
-
-
     $task=\App\Task::create($request->all());
    
     /**** insert แบบที่ 2 
@@ -93,9 +93,11 @@ Route::get('/testweb',function(){
 
    // echo "Save Success";
    // return $request->all();  
-   // return Redirect::back();
-   $task = new \App\Task();
-   return view('savelog')->with(['tasks'=>$task::all()]);
+ 
+      // return redirect()->back();
+       return redirect()->back()->with('success','Create Successfully');
+   //$task = new \App\Task();
+   //return view('savelog')->with(['tasks'=>$task::all()]);
  });
 
  Route::post('/updatestatuslog',function($id){
@@ -116,4 +118,30 @@ Route::get('/testweb',function(){
   
   //return "ID:".$id;
    
+ });
+
+ Route::get('/edit/{id}',function($id){
+  $header = "My Work Log Edit";
+  $types[] = ['id'=>1,'name'=>'Programming'];
+  $types[] = ['id'=>2,'name'=>'Change Request'];
+  $types[] = ['id'=>3,'name'=>'Bug'];
+  $types[] = ['id'=>4,'name'=>'Meeting'];
+  $types[] = ['id'=>5,'name'=>'Learning'];
+  $types[] = ['id'=>6,'name'=>'Other'];
+ 
+  //return \App\Task::find($id);
+    $task =  \App\Task::find($id);
+    return  view('edit')->with(['task'=> $task,'header'=> $header,'types'=>$types] );
+ });
+
+ Route::patch('/edit/{id}',function(Illuminate\Http\Request $request , $id){
+  $validate = $request->validate([
+    'type' => 'required',
+    'name' => 'required|max:100',
+    'completed' => 'required'
+ ]);
+   $task = \App\Task::find($id);
+   $task->update($request->all());
+  //return $request ->all();
+  return redirect()->back()->with('success','Update Successfully');
  });
