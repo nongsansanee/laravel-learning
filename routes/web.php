@@ -113,31 +113,31 @@ Route::get('/testweb',function(){
    //return view('savelog')->with(['tasks'=>$task::all()]);
  });
 
- Route::get('/savelog',function(){   
+//  Route::get('/savelog',function(){   
  
  
-   // insert แบบที่ 1
-       $task=\App\Task::create($request->all());
+//    // insert แบบที่ 1
+//        $task=\App\Task::create($request->all());
    
-    /**** insert แบบที่ 2 
-   $task = new \App\Task();
-   $task->type= $request->type;
-   $task->name= $request->name;
-   $task->detail= $request->detail;
-   $task->completed=$request->completed;
-   $task->save();
-   ***/
+//     /**** insert แบบที่ 2 
+//    $task = new \App\Task();
+//    $task->type= $request->type;
+//    $task->name= $request->name;
+//    $task->detail= $request->detail;
+//    $task->completed=$request->completed;
+//    $task->save();
+//    ***/
 
-   // echo "Save Success";
-   // return $request->all();  
+//    // echo "Save Success";
+//    // return $request->all();  
  
-      // return redirect()->back();
-   /******การ retrun แบบส่งข้อความกลับไป */
-       return redirect()->back()->with('success','Create Successfully');
+//       // return redirect()->back();
+//    /******การ retrun แบบส่งข้อความกลับไป */
+//        return redirect()->back()->with('success','Create Successfully');
 
-   //$task = new \App\Task();
-   //return view('showlog')->with(['tasks'=>$task::all()]);
- });
+//    //$task = new \App\Task();
+//    //return view('showlog')->with(['tasks'=>$task::all()]);
+//  });
 
 //  Route::get('/showlog',function(){   
 //    // $header = "My Work Log";
@@ -153,37 +153,40 @@ Route::get('/testweb',function(){
 //    //
 //  });
 
+Route::get('/savelog','TaskController@create');
 
 //140662  เปลี่ยนให้ route ไปเรียก controller
  Route::get('/showlog','TaskController@index');
 
- Route::put('/updatestatuslog/{id}',function($id){
+//  Route::put('/updatestatuslog/{id}',function($id){
   
-    $task = \App\Task::find($id);
-   if(empty($task)){
-      return "Not Found";
-      // return "Not Found Task=".$task;
-   }
-    $task->completed = 0;
-    $task->update();
-   return redirect()->back()->with('success','Update Status Successfully');
+//     $task = \App\Task::find($id);
+//    if(empty($task)){
+//       return "Not Found";
+//       // return "Not Found Task=".$task;
+//    }
+//     $task->completed = 0;
+//     $task->update();
+//    return redirect()->back()->with('success','Update Status Successfully');
  
- });
+//  });
 
- Route::get('/deletelog/{id}',function($id){
-  
-   //echo "......Deleting....";
+ Route::put('/updatestatuslog/{id}','TaskController@edit');
  
-  $task = new \App\Task();
-  $task = App\Task::find($id);
-  $task->delete();
-
-  $task = new \App\Task();
-   return view('showlog')->with(['tasks'=>$task::all()]);
+//  Route::get('/deletelog/{id}',function($id){
   
-  //return "ID:".$id;
+  
+//   $task = App\Task::find($id);
+//   $task->delete();
+
+//   $task = new \App\Task();
+ 
+//    return redirect()->back()->with('success','Delete Successfully');
+
    
- });
+//  });
+
+Route::get('/deletelog/{id}','TaskController@destroy');
 
  Route::get('/edit/{id}',function($id){
   $header = "My Work Log Edit";
@@ -214,19 +217,19 @@ Route::get('/testweb',function(){
             ] );
  });
 
- Route::patch('/edit/{id}',function(Illuminate\Http\Request $request , $id){
-  $validate = $request->validate([
-    'type' => 'required',
-    'name' => 'required|max:100',
-    'completed' => 'required'
- ]);
-   $task = \App\Task::find($id);
-   $task =  \App\Task::find($id);
-   if(empty($task)){
-     //return "Not Found";
-      return "Not Found Task=".$id;
-  }
-   $task->update($request->all());
-  //return $request ->all();
-  return redirect()->back()->with('success','Update Detail Successfully');
- });
+//  Route::patch('/edit/{id}',function(Illuminate\Http\Request $request , $id){
+//   $validate = $request->validate([
+//     'type' => 'required',
+//     'name' => 'required|max:100',
+//     'completed' => 'required'
+//  ]);
+ 
+//    $task =  \App\Task::find($id);
+//    if(empty($task)){
+//       return "Not Found Task=".$id;
+//   }
+//    $task->update($request->all());
+//   //return $request ->all();
+//   return redirect()->back()->with('success','Update Detail Successfully');
+//  });
+Route::patch('/edit/{id}','TaskController@update');

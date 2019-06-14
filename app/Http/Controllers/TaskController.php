@@ -34,7 +34,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $task=\App\Task::create($request->all());
+        return redirect()->back()->with('success','Create Successfully');
     }
 
     /**
@@ -67,7 +68,16 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        //update status completed
+        $task = Task::find($id);
+        if(empty($task)){
+      
+           // return "Not Found Task=".$task;
+            return redirect()->back()->with('error','Not Found');
+        }
+         $task->completed = 0;
+         $task->update();
+        return redirect()->back()->with('success','Update Status Successfully');
     }
 
     /**
@@ -79,7 +89,20 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = $request->validate([
+            'type' => 'required',
+            'name' => 'required|max:100',
+            'completed' => 'required'
+         ]);
+         
+           $task =  Task::find($id);
+           if(empty($task)){
+             // return "Not Found Task=".$id;
+              return redirect()->back()->with('success','Not Found');
+          }
+           $task->update($request->all());
+          //return $request ->all();
+          return redirect()->back()->with('success','Update Detail Successfully');
     }
 
     /**
@@ -90,6 +113,13 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+     
+            $task = Task::find($id);
+            $task->delete();
+
+            $task = new \App\Task();
+            
+            return redirect()->back()->with('success','Delete Successfully');
+          
     }
 }
