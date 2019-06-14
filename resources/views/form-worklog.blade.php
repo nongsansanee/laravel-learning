@@ -78,9 +78,9 @@
         </center>
     </form>
 
-    <form action="{{url('/savelog')}}" method="get" class="was-validated">
+    <!-- <form action="{{url('/showlog')}}" method="get" class="was-validated">
       <button type="submit" class="btn btn-primary">แสดงข้อมูล Work Log</button>
-    </form>
+    </form> -->
 
     
 
