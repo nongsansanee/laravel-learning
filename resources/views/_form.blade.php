@@ -12,12 +12,12 @@
                 @endforeach
         </div>
     @endif
-        
+    <!-- <div class="collapse" id="collapseExample">555</div> -->
     @if (isset($task))
-         <form action="{{url('/edit',$task->id)}}" method="post">    
-        <input type="hidden" name="_method" value="PATCH">
+        <form action="{{url('/edit',$task->id)}}" method="post" class="{{ isset($task) ? '' : 'collapse' }}" id="collapseExample">    
+        <input type="hidden" name="_method" value="PUT">
     @else
-         <form action="{{url('/savelog')}}" method="post">
+        <form action="{{url('/savelog')}}" method="post" class="{{ isset($task) ? '' : 'collapse' }}" id="collapseExample">
     @endif
   <!-- <h2>{{$header}}</h2> -->
     <!-- <form action="{{url('/savelog')}}" method="post" class="was-validated"> -->
@@ -90,8 +90,13 @@
         <center>
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="submit" class="btn btn-secondary">Cancel</button>
+       
         </center>
     </form>
+
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                กดดูสิ จ๊ะเอ๋!!!
+        </a>
 
     <br><br>
 

@@ -13,6 +13,11 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        // $this->middleware('auth')->except('test','xxxxx');  
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $header = "My Work Log";
@@ -69,15 +74,54 @@ class TaskController extends Controller
     public function edit($id)
     {
         //update status completed
-        $task = Task::find($id);
-        if(empty($task)){
+        // $task = Task::find($id);
+        // if(empty($task)){
       
-           // return "Not Found Task=".$task;
-            return redirect()->back()->with('error','Not Found');
-        }
-         $task->completed = 0;
-         $task->update();
-        return redirect()->back()->with('success','Update Status Successfully');
+        //    // return "Not Found Task=".$task;
+        //     return redirect()->back()->with('error','Not Found');
+        // }
+        //  $task->completed = 0;
+        //  $task->update();
+        // return redirect()->back()->with('success','Update Status Successfully');
+
+        $header = "My Work Log Edit111111";
+        $types[] = ['id'=>1,'name'=>'Programming'];
+        $types[] = ['id'=>2,'name'=>'Change Request'];
+        $types[] = ['id'=>3,'name'=>'Bug'];
+        $types[] = ['id'=>4,'name'=>'Meeting'];
+        $types[] = ['id'=>5,'name'=>'Learning'];
+        $types[] = ['id'=>6,'name'=>'Other'];
+       
+        //return \App\Task::find($id);
+          $task =  \App\Task::find($id);
+          if(empty($task)){
+            //return "Not Found";
+             return "Not Found Task=".$id;
+         }
+         //  return  view('edit')->with(['task'=> $task,'header'=> $header,'types'=>$types] );
+      
+         $tasks = \App\Task::all();
+         return  view('showlog')
+                  ->with([
+                     'task'=> $task,
+                     'header'=> $header,
+                     'types'=>$types,
+                     'tasks'=>$tasks,
+                     'task'=> $task,
+                    
+                  ] );
+    }
+    public function updateStatus(Request $request,$id)
+    {
+        //return "update status";
+        $task = \App\Task::find($id);
+           if(empty($task)){
+              return "Not Found";
+              // return "Not Found Task=".$task;
+           }
+            $task->completed = 0;
+            $task->update();
+           return redirect()->back()->with('success','Update Status Successfully');
     }
 
     /**

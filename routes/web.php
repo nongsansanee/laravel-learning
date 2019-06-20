@@ -156,9 +156,9 @@ Route::get('/testweb',function(){
 Route::get('/savelog','TaskController@create');
 
 //140662  เปลี่ยนให้ route ไปเรียก controller
- Route::get('/showlog','TaskController@index');
+ Route::get('/showlog','TaskController@index')->middleware('auth');
 
-//  Route::put('/updatestatuslog/{id}',function($id){
+//  Route::patch('/updatestatuslog/{id}',function(Illuminate\Http\Request $request ,$id){
   
 //     $task = \App\Task::find($id);
 //    if(empty($task)){
@@ -171,7 +171,9 @@ Route::get('/savelog','TaskController@create');
  
 //  });
 
- Route::put('/updatestatuslog/{id}','TaskController@edit');
+  Route::patch('/updatestatuslog/{id}','TaskController@updateStatus');
+
+
  
 //  Route::get('/deletelog/{id}',function($id){
   
@@ -188,34 +190,8 @@ Route::get('/savelog','TaskController@create');
 
 Route::get('/deletelog/{id}','TaskController@destroy');
 
- Route::get('/edit/{id}',function($id){
-  $header = "My Work Log Edit";
-  $types[] = ['id'=>1,'name'=>'Programming'];
-  $types[] = ['id'=>2,'name'=>'Change Request'];
-  $types[] = ['id'=>3,'name'=>'Bug'];
-  $types[] = ['id'=>4,'name'=>'Meeting'];
-  $types[] = ['id'=>5,'name'=>'Learning'];
-  $types[] = ['id'=>6,'name'=>'Other'];
- 
-  //return \App\Task::find($id);
-    $task =  \App\Task::find($id);
-    if(empty($task)){
-      //return "Not Found";
-       return "Not Found Task=".$id;
-   }
-   //  return  view('edit')->with(['task'=> $task,'header'=> $header,'types'=>$types] );
-
-   $tasks = \App\Task::all();
-   return  view('showlog')
-            ->with([
-               'task'=> $task,
-               'header'=> $header,
-               'types'=>$types,
-               'tasks'=>$tasks,
-               'task'=> $task,
-               'success','Update detail Successfully'
-            ] );
- });
+ Route::get('/edit/{id}','TaskController@edit');
+ Route::put('/edit/{id}','TaskController@update')->middleware('auth');
 
 //  Route::patch('/edit/{id}',function(Illuminate\Http\Request $request , $id){
 //   $validate = $request->validate([
@@ -232,4 +208,11 @@ Route::get('/deletelog/{id}','TaskController@destroy');
 //   //return $request ->all();
 //   return redirect()->back()->with('success','Update Detail Successfully');
 //  });
-Route::patch('/edit/{id}','TaskController@update');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/edit/{id}','TasksController@edit');
+// Route::patch('/edit/{id}','TaskController@update');

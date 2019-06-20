@@ -76,8 +76,9 @@
              <form action="{{url('/updatestatuslog',$task['id'])}}" method="post" class="was-validated">
                 <!-- <label >ยังไม่สำเร็จ</label> -->
                 <!-- <label class="form-check-label"> -->
+                     <input type="hidden" name="_method" value="patch">
                      <input type="hidden"  name="_token" value="{{ csrf_token()}}">
-                     <input type="hidden" name="_method" value="PUT">
+                    
                      <button type="submit"  class="btn btn-primary"> click เมื่องานนี้สำเร็จ </button> 
                      <!-- <input type="checkbox" id="myCheck" class="form-check-input"  onclick="myFunction({{$task['id']}})"> click เมื่องานนี้สำเร็จ     -->
 
@@ -96,8 +97,10 @@
                   <button type="submit" class="btn btn-warning">แก้ไข</button>
               </form> -->
               <!-- <a href="{{ url('/edit',$task->id)}}">Edit</a> -->
+              <!-- <form action="/deletelog/{{$task['id']}}" method="POST" >
+              <input type="hidden" name="_method" value="patch"> -->
                 <a class="btn btn-success" role="button" href="{{ url('/edit',$task->id)}}">Edit</a> 
-
+              <!-- </form> -->
 
                <form action="/deletelog/{{$task['id']}}" method="get" >
                   <button type="submit" class="btn btn-danger">ลบ</button>
