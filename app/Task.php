@@ -38,4 +38,21 @@ class Task extends Model
                 break;
         }
     }
+
+ 
+
+    protected $types=[
+        
+        ['id'=>1,'name'=>'Programming'],
+        ['id'=>2,'name'=>'Change Request'],
+        ['id'=>3,'name'=>'Bug'],
+        ['id'=>4,'name'=>'Meeting'],
+        ['id'=>5,'name'=>'Learning'],
+        ['id'=>6,'name'=>'Other']
+    ];
+
+    public function getType()
+    {
+        return $this->types[$this->type];
+    }
 }
