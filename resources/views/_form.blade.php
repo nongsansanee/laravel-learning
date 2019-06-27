@@ -30,10 +30,10 @@
                 <label class="form-check-label">
                      <!-- <input type="radio" name="type" value="{{$type['id']}}" required>{{ $type['name']}} -->
                        <!-- <input type="radio" name="type" value="{{$type['id']}}" {{old('type', isset($task)? :'')  == $type['id'] ? 'checked':''  }}>{{ $type['name']}} -->
-                    @if( old('type',isset($task) ? $task->type : '') == $type['id'])
-                       <input type="radio" name="type" value="{{$type['id']}}" checked>{{ $type['name']}}
+                    @if( old('type',isset($task) ? $task->type_id : '') == $type['id'])
+                       <input type="radio" name="type_id" value="{{$type['id']}}" checked>{{ $type['name']}}
                     @else
-                         <input type="radio" name="type" value="{{$type['id']}}">{{ $type['name']}}
+                         <input type="radio" name="type_id" value="{{$type['id']}}">{{ $type['name']}}
                     @endif
                 
                 </label>

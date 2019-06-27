@@ -7,28 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $fillable = [ 
-        'type',
+        'type_id',
         'name',
         'detail',
         'completed'   
     ];
 
     public function getTypeName(){
-        switch($this->type){
+        switch($this->type_id){
             case 1:
                 return "Programing";
                 break;
             case 2:
-                return "Change Request";
+                return "support";
                 break;
             case 3:
-                return "Bug";
+                return "learning";
                 break;
             case 4:
                 return "Meeting";
                 break;
             case 5:
-                return "Learning";
+                return "Other";
                 break;
             case 6:
                 return "Other";
@@ -54,5 +54,9 @@ class Task extends Model
     public function getType()
     {
         return $this->types[$this->type];
+    }
+
+    public function type(){
+        return $this->belongsTo(Type::class);
     }
 }

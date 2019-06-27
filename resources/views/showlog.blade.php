@@ -35,10 +35,12 @@
       <tr class=" @if($task['completed']===1) table-danger @else table-success @endif">
         <td>{{$task['id']}}</td>
         <td>
-          <!-- {{$task['type']}} -->
+          <!-- {{$task['type_id']}} -->
 
-          {{$task->getTypeName()}}
-        <!-- @switch($task['type'])
+          <!-- {{$task->getTypeName()}} -->
+          {{$task->type->name}}
+  
+        <!-- @switch($task['type_id'])
                 @case(1)
                     Programing
                     @break

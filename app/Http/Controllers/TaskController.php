@@ -21,14 +21,17 @@ class TaskController extends Controller
     public function index()
     {
         $header = "My Work Log";
-        $types[] = ['id'=>1,'name'=>'Programming'];
-        $types[] = ['id'=>2,'name'=>'Change Request'];
-        $types[] = ['id'=>3,'name'=>'Bug'];
-        $types[] = ['id'=>4,'name'=>'Meeting'];
-        $types[] = ['id'=>5,'name'=>'Learning'];
-        $types[] = ['id'=>6,'name'=>'Other'];
+        // $types[] = ['id'=>1,'name'=>'Programming'];
+        // $types[] = ['id'=>2,'name'=>'Change Request'];
+        // $types[] = ['id'=>3,'name'=>'Bug'];
+        // $types[] = ['id'=>4,'name'=>'Meeting'];
+        // $types[] = ['id'=>5,'name'=>'Learning'];
+        // $types[] = ['id'=>6,'name'=>'Other'];
       //  return view('form-worklog')->with(['header'=> $header,'types'=>$types]);
+
+         $types = \App\Type::all();
          $tasks = Task::all();
+        // return $tasks;
         return view('showlog')->with(['header'=> $header,'types'=>$types,'tasks'=>$tasks]);
     }
 
@@ -134,7 +137,7 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         $validate = $request->validate([
-            'type' => 'required',
+            'type_id' => 'required',
             'name' => 'required|max:100',
             'completed' => 'required'
          ]);

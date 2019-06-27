@@ -76,13 +76,13 @@ Route::get('/testweb',function(){
  
     //การ validate และ show msg error  ที่เราต้องการ
    $validate = [
-      'type' => 'required',
+      'type_id' => 'required',
       'name' => 'required|max:100',
       'completed' => 'required'
    ];
 
    $errorMsg = [
-      'type.required' => 'กรุณาเลือกประเภทงาน',
+      'type_id.required' => 'กรุณาเลือกประเภทงาน',
       'name.required' => 'กรุณากรอกชื่องาน',
       'completed.required' => 'กรุณาเลือกสถานะงาน'
     ];
