@@ -41,8 +41,10 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $task=\App\Task::create($request->all());
+    {   
+      // return $request->all();
+       $task=\App\Task::create($request->all()+ ['user_id' => 1]);
+        
         return redirect()->back()->with('success','Create Successfully');
     }
 
@@ -54,7 +56,46 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+       // return $request->all();
+         //การ validate และ show msg error  ที่เราต้องการ
+        $validate = [
+            'type_id' => 'required',
+            'name' => 'required|max:100',
+            'completed' => 'required'
+        ];
+
+        $errorMsg = [
+            'type_id.required' => 'กรุณาเลือกประเภทงาน',
+            'name.required' => 'กรุณากรอกชื่องาน',
+            'completed.required' => 'กรุณาเลือกสถานะงาน'
+        ];
+
+        $request->validate($validate,$errorMsg);
+
+
+        // insert แบบที่ 1
+            $task=\App\Task::create($request->all()+ ['user_id' => \Auth::id()]);
+        
+        /**** insert แบบที่ 2 
+         $task = new \App\Task();
+        $task->type= $request->type;
+        $task->name= $request->name;
+        $task->detail= $request->detail;
+        $task->completed=$request->completed;
+        $task->save();
+        ***/
+
+        // echo "Save Success";
+        // return $request->all();  
+
+            // return redirect()->back();
+        /******การ retrun แบบส่งข้อความกลับไป */
+            return redirect()->back()->with('success','Create Successfully');
+
+        //$task = new \App\Task();
+        //return view('savelog')->with(['tasks'=>$task::all()]);
+      
     }
 
     /**

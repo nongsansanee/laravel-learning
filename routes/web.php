@@ -72,46 +72,7 @@ Route::get('/testweb',function(){
     return $request->username;
  });
 
- Route::post('/savelog',function(Illuminate\Http\Request $request){   
- 
-    //การ validate และ show msg error  ที่เราต้องการ
-   $validate = [
-      'type_id' => 'required',
-      'name' => 'required|max:100',
-      'completed' => 'required'
-   ];
-
-   $errorMsg = [
-      'type_id.required' => 'กรุณาเลือกประเภทงาน',
-      'name.required' => 'กรุณากรอกชื่องาน',
-      'completed.required' => 'กรุณาเลือกสถานะงาน'
-    ];
-
-    $request->validate($validate,$errorMsg);
-
-
-   // insert แบบที่ 1
-       $task=\App\Task::create($request->all());
-   
-    /**** insert แบบที่ 2 
-   $task = new \App\Task();
-   $task->type= $request->type;
-   $task->name= $request->name;
-   $task->detail= $request->detail;
-   $task->completed=$request->completed;
-   $task->save();
-   ***/
-
-   // echo "Save Success";
-   // return $request->all();  
- 
-      // return redirect()->back();
-   /******การ retrun แบบส่งข้อความกลับไป */
-       return redirect()->back()->with('success','Create Successfully');
-
-   //$task = new \App\Task();
-   //return view('savelog')->with(['tasks'=>$task::all()]);
- });
+ Route::post('/savelog','TaskController@store');
 
 //  Route::get('/savelog',function(){   
  
@@ -216,3 +177,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::get('/edit/{id}','TasksController@edit');
 // Route::patch('/edit/{id}','TaskController@update');
+
+Route::post('/savetype','TypeController@store');
+
+//Route::post('/savetype',function(Illuminate\Http\Request $request){
+//   return $request ->all();
+//});
+
+Route::get('/formtype',function(){   
+
+   $header = "Create Job Type";
+  
+    
+      return view('formtype')->with(['header'=> $header]);
+      
+});

@@ -2,7 +2,7 @@
         <div class="alert alert-success">
             {{$message}}
         </div>
-    @endif
+ @endif
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -23,6 +23,7 @@
     <!-- <form action="{{url('/savelog')}}" method="post" class="was-validated"> -->
         <!-- <div class="card"> -->
         <h2 class="card-header">{{$header}}</h2>
+       
         <div class="form-group">
             <input class="form-check-input @error('type') is-invalid @enderror" type="hidden" name="_token" value="{{ csrf_token()}}" ><br>
             *ประเภทงาน:

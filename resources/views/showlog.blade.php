@@ -17,7 +17,7 @@
   </form>   -->
   <input class="form-control" id="myInput" type="text" placeholder="Search..">
   <br>
- 
+  <h2>Username:{{Auth::user()->name}}</h2>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -28,6 +28,7 @@
         <th>สถานะงาน</th>
         <th>วันที่บันทึก</th>
         <th>แก้ไข/ลบ รายการ</th>
+        <th>ผู้บันทึก</th>
       </tr>
     </thead>
     <tbody id="myTable">
@@ -109,6 +110,9 @@
               </form>
 
             </div>
+         </td>
+         <td>
+         {{$task->user->name}}
          </td>
       </tr>
       @endforeach
