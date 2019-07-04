@@ -17,6 +17,7 @@
   </form>   -->
   <input class="form-control" id="myInput" type="text" placeholder="Search..">
   <br>
+  <!-- {{Auth::user()}} -->
   <h2>Username:{{Auth::user()->name}}</h2>
   <table class="table table-striped">
     <thead>
@@ -27,7 +28,8 @@
         <th>รายละเอียดงาน</th>
         <th>สถานะงาน</th>
         <th>วันที่บันทึก</th>
-        <th>แก้ไข/ลบ รายการ</th>
+        <th>แก้ไขรายการ</th>
+        <th>ลบรายการ</th>
         <th>ผู้บันทึก</th>
       </tr>
     </thead>
@@ -103,6 +105,21 @@
               <!-- <form action="/deletelog/{{$task['id']}}" method="POST" >
               <input type="hidden" name="_method" value="patch"> -->
                 <a class="btn btn-success" role="button" href="{{ url('/edit',$task->id)}}">Edit</a> 
+              <!-- </form> -->
+
+             
+
+            </div>
+         </td>
+         <td>
+            <div>
+              <!-- <form action="{{url('/edit',$task['id'])}}" method="get" class="was-validated">
+                  <button type="submit" class="btn btn-warning">แก้ไข</button>
+              </form> -->
+              <!-- <a href="{{ url('/edit',$task->id)}}">Edit</a> -->
+              <!-- <form action="/deletelog/{{$task['id']}}" method="POST" >
+              <input type="hidden" name="_method" value="patch"> -->
+           
               <!-- </form> -->
 
                <form action="/deletelog/{{$task['id']}}" method="get" >

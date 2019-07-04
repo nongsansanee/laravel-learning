@@ -29,8 +29,18 @@ class TaskController extends Controller
         // $types[] = ['id'=>6,'name'=>'Other'];
       //  return view('form-worklog')->with(['header'=> $header,'types'=>$types]);
 
+        $role = \Auth::user()->roles()->where('role_id',1)
+                                        //->orWhere('role_id',2)
+                                        ->first();
+        if(!empty($role)){
+            $tasks = Task::all();
+        }else{
+            $tasks = Task::where('user_id',\Auth::id())->get();
+
+        }
+
          $types = \App\Type::all();
-         $tasks = Task::all();
+        //  $tasks = Task::all();
         // return $tasks;
         return view('showlog')->with(['header'=> $header,'types'=>$types,'tasks'=>$tasks]);
     }

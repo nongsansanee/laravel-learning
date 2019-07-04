@@ -96,7 +96,7 @@
     </form>
 
     <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                กดดูสิ จ๊ะเอ๋!!!
+                กดเพื่อบันทึกการทำงาน!!
         </a>
 
     <br><br>
