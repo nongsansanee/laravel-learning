@@ -127,24 +127,15 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //update status completed
-        // $task = Task::find($id);
-        // if(empty($task)){
-      
-        //    // return "Not Found Task=".$task;
-        //     return redirect()->back()->with('error','Not Found');
-        // }
-        //  $task->completed = 0;
-        //  $task->update();
-        // return redirect()->back()->with('success','Update Status Successfully');
+       
 
         $header = "My Work Log Edit111111";
-        $types[] = ['id'=>1,'name'=>'Programming'];
-        $types[] = ['id'=>2,'name'=>'Change Request'];
-        $types[] = ['id'=>3,'name'=>'Bug'];
-        $types[] = ['id'=>4,'name'=>'Meeting'];
-        $types[] = ['id'=>5,'name'=>'Learning'];
-        $types[] = ['id'=>6,'name'=>'Other'];
+        // $types[] = ['id'=>1,'name'=>'Programming'];
+        // $types[] = ['id'=>2,'name'=>'Change Request'];
+        // $types[] = ['id'=>3,'name'=>'Bug'];
+        // $types[] = ['id'=>4,'name'=>'Meeting'];
+        // $types[] = ['id'=>5,'name'=>'Learning'];
+        // $types[] = ['id'=>6,'name'=>'Other'];
        
         //return \App\Task::find($id);
           $task =  \App\Task::find($id);
@@ -153,8 +144,21 @@ class TaskController extends Controller
              return "Not Found Task=".$id;
          }
          //  return  view('edit')->with(['task'=> $task,'header'=> $header,'types'=>$types] );
+
+         $types = \App\Type::all();
+
+         $role = \Auth::user()->roles()->where('role_id',1)
+                                    //->orWhere('role_id',2)
+                                    ->first();
+        if(!empty($role)){
+            $tasks = Task::all();
+        }else{
+            $tasks = Task::where('user_id',\Auth::id())->get();
+
+        }
+       
       
-         $tasks = \App\Task::all();
+         //$tasks = \App\Task::all();
          return  view('showlog')
                   ->with([
                      'task'=> $task,
