@@ -192,3 +192,17 @@ Route::get('/formtype',function(){
       return view('formtype')->with(['header'=> $header]);
       
 });
+
+
+
+// Route::get('/users', function () {
+//    $users = \App\User::all();
+//    return $users;
+//    return view('users.index')->with(['users'=>$users]);
+// });
+
+Route::get('/users',function(){
+   // $users = \App\User::all();
+   $users = \App\User::paginate(50);
+   return view('users.index')->with(['users'=>$users]);
+});

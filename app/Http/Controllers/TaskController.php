@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 use \App\Task;
 
 class TaskController extends Controller
@@ -29,13 +31,38 @@ class TaskController extends Controller
         // $types[] = ['id'=>6,'name'=>'Other'];
       //  return view('form-worklog')->with(['header'=> $header,'types'=>$types]);
 
-        $role = \Auth::user()->roles()->where('role_id',1)
-                                        //->orWhere('role_id',2)
-                                        ->first();
+       // $role = \Auth::user()->roles()->where('role_id',1)
+                                      //  ->first();
+        
+          $role = \Auth::user()->roles()->where(function($query){
+            $query->where('role_id',1)->orWhere('role_id',2);
+          })->first();
+       // return $role;
         if(!empty($role)){
-            $tasks = Task::all();
+            // $tasks = Task::all();
+            // $tasks = DB::table('tasks')->get();
+            $tasks = DB::table('tasks')
+                                ->join('types','tasks.type_id','=','types.id')
+                                ->join('users','tasks.user_id','=','users.id')
+                                ->select(
+                                    'tasks.*',
+                                    'types.name as type_name',
+                                    'users.username as username'
+                                )
+                                ->get();
+        // return $tasks;
         }else{
-            $tasks = Task::where('user_id',\Auth::id())->get();
+           // $tasks = Task::where('user_id',\Auth::id())->get();
+                    $tasks = DB::table('tasks')
+                    ->join('types','tasks.type_id','=','types.id')
+                    ->join('users','tasks.user_id','=','users.id')
+                    ->select(
+                        'tasks.*',
+                        'types.name as type_name',
+                        'users.username as username'
+                    )
+                    ->where('user_id',\Auth::id())
+                    ->get();
 
         }
 
@@ -138,7 +165,12 @@ class TaskController extends Controller
         // $types[] = ['id'=>6,'name'=>'Other'];
        
         //return \App\Task::find($id);
-          $task =  \App\Task::find($id);
+          //$task =  \App\Task::find($id);
+
+          //OR
+
+          $task = DB::table('tasks')->where('id',$id)->first();
+
           if(empty($task)){
             //return "Not Found";
              return "Not Found Task=".$id;
@@ -147,11 +179,20 @@ class TaskController extends Controller
 
          $types = \App\Type::all();
 
-         $role = \Auth::user()->roles()->where('role_id',1)
-                                    //->orWhere('role_id',2)
-                                    ->first();
+         $role = \Auth::user()->roles()->where(function($query){
+            $query->where('role_id',1)->orWhere('role_id',2);
+          })->first();
         if(!empty($role)){
-            $tasks = Task::all();
+            //$tasks = Task::all();
+            $tasks = DB::table('tasks')
+                            ->join('types','tasks.type_id','=','types.id')
+                            ->join('users','tasks.user_id','=','users.id')
+                            ->select(
+                                'tasks.*',
+                                'types.name as type_name',
+                                'users.username as username'
+                            )
+                            ->get();
         }else{
             $tasks = Task::where('user_id',\Auth::id())->get();
 

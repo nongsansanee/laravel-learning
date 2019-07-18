@@ -35,15 +35,15 @@
     </thead>
     <tbody id="myTable">
     @foreach($tasks as $task)
-      <tr class=" @if($task['completed']===1) table-danger @else table-success @endif">
-        <td>{{$task['id']}}</td>
-        <td>
-          <!-- {{$task['type_id']}} -->
+      <tr class=" @if($task->completed===1) table-danger @else table-success @endif">
+        <td>{{ $task->id }}</td>
+        {{-- <td>
+          <!-- {{$task->type_id}} -->
 
           <!-- {{$task->getTypeName()}} -->
           {{$task->type->name}}
   
-        <!-- @switch($task['type_id'])
+        <!-- @switch($task->type_id)
                 @case(1)
                     Programing
                     @break
@@ -66,26 +66,27 @@
                     Opps....
             @endswitch -->
 
-        </td>
-        <td>{{$task['name']}}</td>
-        <td>{{$task['detail']}}</td>
+        </td> --}}
+        <td>{{ $task->type_name}}</td>
+        <td>{{$task->name}}</td>
+        <td>{{$task->detail}}</td>
         <td>
-           <!-- {{ $task['completed']}} -->
-           <!-- $status = $task['completed'] -->
+           <!-- {{ $task->completed}} -->
+           <!-- $status = $task->completed -->
           
            <div>
-             @if($task['completed']===0)
+             @if($task->completed===0)
                  
                  <label >สำเร็จ</label>
              @else
-             <form action="{{url('/updatestatuslog',$task['id'])}}" method="post" class="was-validated">
+             <form action="{{url('/updatestatuslog',$task->id)}}" method="post" class="was-validated">
                 <!-- <label >ยังไม่สำเร็จ</label> -->
                 <!-- <label class="form-check-label"> -->
                      <input type="hidden" name="_method" value="patch">
                      <input type="hidden"  name="_token" value="{{ csrf_token()}}">
                     
                      <button type="submit"  class="btn btn-primary"> click เมื่องานนี้สำเร็จ </button> 
-                     <!-- <input type="checkbox" id="myCheck" class="form-check-input"  onclick="myFunction({{$task['id']}})"> click เมื่องานนี้สำเร็จ     -->
+                     <!-- <input type="checkbox" id="myCheck" class="form-check-input"  onclick="myFunction({{$task->id}})"> click เมื่องานนี้สำเร็จ     -->
 
                        <!-- <input type="checkbox" id="myCheck" class="form-check-input"  data-target="#myModal"> click เมื่องานนี้สำเร็จ     -->
                 <!-- </label> -->
@@ -95,14 +96,14 @@
              </div>
           
          </td>
-         <td>{{$task['created_at']}}</td>
+         <td>{{$task->created_at}}</td>
          <td>
             <div>
-              <!-- <form action="{{url('/edit',$task['id'])}}" method="get" class="was-validated">
+              <!-- <form action="{{url('/edit',$task->id)}}" method="get" class="was-validated">
                   <button type="submit" class="btn btn-warning">แก้ไข</button>
               </form> -->
               <!-- <a href="{{ url('/edit',$task->id)}}">Edit</a> -->
-              <!-- <form action="/deletelog/{{$task['id']}}" method="POST" >
+              <!-- <form action="/deletelog/{{$task->id}}" method="POST" >
               <input type="hidden" name="_method" value="patch"> -->
                 <a class="btn btn-success" role="button" href="{{ url('/edit',$task->id)}}">Edit</a> 
               <!-- </form> -->
@@ -113,24 +114,25 @@
          </td>
          <td>
             <div>
-              <!-- <form action="{{url('/edit',$task['id'])}}" method="get" class="was-validated">
+              <!-- <form action="{{url('/edit',$task->id)}}" method="get" class="was-validated">
                   <button type="submit" class="btn btn-warning">แก้ไข</button>
               </form> -->
               <!-- <a href="{{ url('/edit',$task->id)}}">Edit</a> -->
-              <!-- <form action="/deletelog/{{$task['id']}}" method="POST" >
+              <!-- <form action="/deletelog/{{$task->id}}" method="POST" >
               <input type="hidden" name="_method" value="patch"> -->
            
               <!-- </form> -->
 
-               <form action="/deletelog/{{$task['id']}}" method="get" >
+               <form action="/deletelog/{{$task->id}}" method="get" >
                   <button type="submit" class="btn btn-danger">ลบ</button>
               </form>
 
             </div>
          </td>
-         <td>
+         {{-- <td>
          {{$task->user->name}}
-         </td>
+         </td> --}}
+         <td>{{$task->username}}</td>
       </tr>
       @endforeach
       <!-- <tr>
