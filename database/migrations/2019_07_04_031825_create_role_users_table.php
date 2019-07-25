@@ -20,19 +20,19 @@ class CreateRoleUsersTable extends Migration
             $table->timestamps();
         });
 
-        $role_users= array(
-            ['user_id'=>1,'role_id'=>1],
-            ['user_id'=>1,'role_id'=>2],
-            ['user_id'=>2,'role_id'=>1],
-            ['user_id'=>2,'role_id'=>2],
-            ['user_id'=>3,'role_id'=>2],
-            ['user_id'=>4,'role_id'=>3],
+        // $role_users= array(
+        //     ['user_id'=>1,'role_id'=>1],
+        //     ['user_id'=>1,'role_id'=>2],
+        //     ['user_id'=>2,'role_id'=>1],
+        //     ['user_id'=>2,'role_id'=>2],
+        //     ['user_id'=>3,'role_id'=>2],
+        //     ['user_id'=>4,'role_id'=>3],
           
-        );
+        // );
 
-        foreach($role_users as $role_user){
-            \App\RoleUser::create($role_user);
-        }
+        // foreach($role_users as $role_user){
+        //     \App\RoleUser::create($role_user);
+        // }
     }
 
     /**
