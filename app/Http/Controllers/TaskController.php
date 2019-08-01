@@ -22,6 +22,7 @@ class TaskController extends Controller
 
     public function index()
     {
+
         $header = "My Work Log";
         // $types[] = ['id'=>1,'name'=>'Programming'];
         // $types[] = ['id'=>2,'name'=>'Change Request'];
@@ -34,35 +35,51 @@ class TaskController extends Controller
        // $role = \Auth::user()->roles()->where('role_id',1)
                                       //  ->first();
         
-          $role = \Auth::user()->roles()->where(function($query){
-            $query->where('role_id',1)->orWhere('role_id',2);
-          })->first();
-       // return $role;
+
+        //   $role = \Auth::user()->roles()->where(function($query){
+        //     $query->where('role_id',1)->orWhere('role_id',2);
+        //   })->first();
+            
+        //เปลี่ยนไปใช้ query Scope ใน model role
+        $role = \Auth::user()->roles()->adminOrStaff()->first();   
+
+       //return $role;
         if(!empty($role)){
             // $tasks = Task::all();
             // $tasks = DB::table('tasks')->get();
-            $tasks = DB::table('tasks')
-                                ->join('types','tasks.type_id','=','types.id')
-                                ->join('users','tasks.user_id','=','users.id')
-                                ->select(
-                                    'tasks.*',
-                                    'types.name as type_name',
-                                    'users.username as username'
-                                )
-                                ->get();
-        // return $tasks;
+
+            // $tasks = DB::table('tasks')
+            //                     ->join('types','tasks.type_id','=','types.id')
+            //                     ->join('users','tasks.user_id','=','users.id')
+            //                     ->select(
+            //                         'tasks.*',
+            //                         'types.name as type_name',
+            //                         'users.username as username'
+            //                     )
+            //                     ->get();
+            //เปลี่ยนไปใช้ query Scope ใน model task
+            $sort = 'ASC';
+            $tasks = Task::taskAll($sort)->paginate(10);
+          // return $tasks;
         }else{
            // $tasks = Task::where('user_id',\Auth::id())->get();
-                    $tasks = DB::table('tasks')
-                    ->join('types','tasks.type_id','=','types.id')
-                    ->join('users','tasks.user_id','=','users.id')
-                    ->select(
-                        'tasks.*',
-                        'types.name as type_name',
-                        'users.username as username'
-                    )
-                    ->where('user_id',\Auth::id())
-                    ->get();
+                    // $tasks = DB::table('tasks')
+                    // ->join('types','tasks.type_id','=','types.id')
+                    // ->join('users','tasks.user_id','=','users.id')
+                    // ->select(
+                    //     'tasks.*',
+                    //     'types.name as type_name',
+                    //     'users.username as username'
+                    // )
+                    // ->where('user_id',\Auth::id())
+                    // ->get();
+
+                    //เปลี่ยนไปใช้ query Scope ใน model
+                    $sort="ASC";
+                    $tasks = Task::where('user_id',\Auth::id())
+                                ->taskAll($sort)
+                                ->paginate(10);
+            
 
         }
 
@@ -193,6 +210,9 @@ class TaskController extends Controller
                                 'users.username as username'
                             )
                             ->get();
+            
+          //  return $tasks;
+            //taskAll  
         }else{
             $tasks = Task::where('user_id',\Auth::id())->get();
 
