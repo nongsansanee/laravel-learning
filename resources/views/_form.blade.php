@@ -14,10 +14,10 @@
     @endif
     <!-- <div class="collapse" id="collapseExample">555</div> -->
     @if (isset($task))
-        <form action="{{url('/edit',$task->id)}}" method="post" class="{{ isset($task) ? '' : 'collapse' }}" id="collapseExample">    
+        <form action="{{url('/edit',$task->id)}}" method="post" enctype="multipart/form-data" class="{{ isset($task) ? '' : 'collapse' }}" id="collapseExample">    
         <input type="hidden" name="_method" value="PUT">
     @else
-        <form action="{{url('/savelog')}}" method="post" class="{{ isset($task) ? '' : 'collapse' }}" id="collapseExample">
+        <form action="{{url('/savelog')}}" method="post" enctype="multipart/form-data" class="{{ isset($task) ? '' : 'collapse' }}" id="collapseExample">
     @endif
   <!-- <h2>{{$header}}</h2> -->
     <!-- <form action="{{url('/savelog')}}" method="post" class="was-validated"> -->
@@ -83,7 +83,11 @@
              </label>
         </div>
     
+        <div class="form-group">
+            <label>file:</label>
+            <input type="file" name="file_upload">
 
+        </div>
        
            
         <!-- </div>    -->

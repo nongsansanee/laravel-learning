@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Storage;
+
 use \App\Task;
 
 class TaskController extends Controller
@@ -116,7 +118,8 @@ class TaskController extends Controller
         $validate = [
             'type_id' => 'required',
             'name' => 'required|max:100',
-            'completed' => 'required'
+            'completed' => 'required',
+            'file_upload' => 'required|mimes:pdf,jpg,jpeg|max:1024'
         ];
 
         $errorMsg = [
@@ -127,9 +130,25 @@ class TaskController extends Controller
 
         $request->validate($validate,$errorMsg);
 
-
+        $task=\App\Task::create($request->all()+ ['user_id' => \Auth::id()]);
+        if($request->hasFile('file_upload'))
+        {
+            //$path = $request->file('file_upload')->store('public/tasks');
+           // $path = $request->file('file_upload')->storeAs('public/tasks',$request->file('file_upload')->getClientOriginalName());
+            $path = $request->file('file_upload')->storeAs('/tasks',$request->file('file_upload')->getClientOriginalName());
+          
+           // return $path;
+            //return Storage::url($path);
+            $file = pathInfo($path);
+            $task->file = $file['basename'];
+            $task->update();
+           // return $file;
+           return Storage::download($path);
+        }else{
+            return 'no file';
+        }
         // insert แบบที่ 1
-            $task=\App\Task::create($request->all()+ ['user_id' => \Auth::id()]);
+           
         
         /**** insert แบบที่ 2 
          $task = new \App\Task();

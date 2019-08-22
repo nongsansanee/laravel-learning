@@ -26,6 +26,7 @@
         <th>ประเภทงาน</th>
         <th>ชื่องาน</th>
         <th>รายละเอียดงาน</th>
+        <th>รูป</th>
         <th>สถานะงาน</th>
         <th>วันที่บันทึก</th>
         <th>แก้ไขรายการ</th>
@@ -70,6 +71,7 @@
         <td>{{ $task->type_name}}</td>
         <td>{{$task->name}}</td>
         <td>{{$task->detail}}</td>
+        <td><a href="{{url('/storage/tasks/'.$task->file)}}" target="_blank">click me</a></td>
         <td>
            <!-- {{ $task->completed}} -->
            <!-- $status = $task->completed -->

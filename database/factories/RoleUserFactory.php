@@ -10,6 +10,6 @@ $factory->define(RoleUser::class, function (Faker $faker) {
     return [
         // 'role_id' => 3,
         // 'role_id' => rand(1,\App\Role::count()),
-        'role_id' => $faker->unique()-numberBetween(1,$end_number),
+        'role_id' => $faker->numberBetween(1,$end_number),
     ];
 });
