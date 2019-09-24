@@ -88,6 +88,13 @@
             <input type="file" name="file_upload">
 
         </div>
+
+        <div class="form-group">
+            <label>file excel:</label>
+            <input type="file" name="file_upload_xls">
+
+        </div>
+       
        
            
         <!-- </div>    -->
