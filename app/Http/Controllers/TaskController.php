@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 use \App\Task;
+use \App\TimeStamp;
 
 class TaskController extends Controller
 {
@@ -168,6 +169,40 @@ class TaskController extends Controller
 
         //$task = new \App\Task();
         //return view('savelog')->with(['tasks'=>$task::all()]);
+      
+    }
+
+    public function store_excel(Request $request)
+    {
+
+      // return $request->all();
+         //การ validate และ show msg error  ที่เราต้องการ
+     
+        if($request->hasFile('file_upload'))
+        {
+            // $path = $request->file('file_upload')->store('public');
+           // $path = $request->file('file_upload')->storeAs('public/tasks',$request->file('file_upload')->getClientOriginalName());
+            $path = $request->file('file_upload')->storeAs('/public',$request->file('file_upload')->getClientOriginalName());
+          
+           // return $path;
+            //return Storage::url($path);
+            $file = pathInfo($path);
+         
+            $timestamp = new \App\Imports\TimeStampImport();
+            // return $path;
+            $timestamp->import(storage_path('app/'.$path));
+           // return $file;
+        //    return Storage::download($path);
+
+            $count_row = TimeStamp::count();
+            return  "count row table time_stamps=".$count_row;
+             return Storage::url($path);
+        }else{
+            return 'no file';
+        }
+      
+            return redirect()->back()->with('success','Upload excel file Successfully');
+
       
     }
 

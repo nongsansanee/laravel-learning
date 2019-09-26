@@ -74,6 +74,9 @@ Route::get('/testweb',function(){
 
  Route::post('/savelog','TaskController@store');
 
+ 
+ Route::post('/up-excel-file','TaskController@store_excel');
+
 //  Route::get('/savelog',function(){   
  
  
@@ -205,4 +208,8 @@ Route::get('/users',function(){
    // $users = \App\User::all();
    $users = \App\User::paginate(50);
    return view('users.index')->with(['users'=>$users]);
+});
+
+Route::get('/upload-excel', function () {
+   return view('upload-excel');
 });
